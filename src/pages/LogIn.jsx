@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"
-
+import { validationLogin } from "../utils/Validation";
 function LogIn() {
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
@@ -9,6 +9,13 @@ function LogIn() {
   const handleLogin = (e) => {
     e.preventDefault();
     setError("")
+    const validationError=validationLogin(
+      email,password
+    )
+    if(validationError){
+      setError(validationError)
+      return
+    }
     const savedUser = JSON.parse(
       localStorage.getItem("user")
     );
@@ -19,7 +26,7 @@ function LogIn() {
     }
 
     if (
-      savedUser.email.trim().toLowerCase() !== email.trim().toLocaleLowerCase()
+      savedUser.email.trim().toLowerCase() !== email.trim().toLowerCase()
     ) {
       setError("User not found.");
       return;
@@ -39,13 +46,13 @@ function LogIn() {
   // console.log(password);
   return (
     <div
-      className="min-h-screen bg-cover bg-center flex justify-end items-center px-40"
+      className="min-h-screen bg-cover bg-center flex  justify-center lg:justify-end items-center px-4 sm:10 lg:px-40"
       style={{
         backgroundImage: "url('/images/login.png')",
       }}
     >
       {/* Login Card */}
-      <div className="bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-xl w-[90%] max-w-md ">
+      <div className="bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-xl w-full max-w-md ">
 
         <h1 className="text-3xl font-bold text-center text-green-700 mb-6">
           Fresh Mart

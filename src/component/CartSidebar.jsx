@@ -92,7 +92,7 @@ function CartSidebar({ cart, cartOpen, setCartOpen, setCart }) {
       </div>
 
       {/* total */}
-      <div className='absolute bottom-0 left-0 w-full p-5 border-t bg-white'>
+      <div className='absolute bottom-0 left-0 w-full p-5 mb-5 border-t bg-white'>
 
         <div className='flex justify-between text-xl font-bold'>
 
