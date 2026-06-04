@@ -1,5 +1,51 @@
 import React from 'react'
-function FruitsCards({ item }) {
+function FruitsCards({ item, cart = [], setCart, loading }) {
+
+
+  // skeleton UI
+  if (loading) {
+    return (
+      <div className='rounded-lg overflow-hidden shadow-lg animate-pulse relative'>
+
+        {/* image */}
+        <div className='w-full h-52 bg-slate-300'></div>
+
+        {/* content */}
+        <div className='flex flex-col items-center my-1 p-1 space-y-3'>
+
+          {/* fruit name */}
+          <div className='h-5 w-32 bg-slate-300 rounded'></div>
+
+          {/* price */}
+          <div className='h-5 w-16 bg-slate-300 rounded'></div>
+
+          {/* button */}
+          <div className='h-8 w-28 bg-slate-300 rounded'></div>
+
+        </div>
+
+        {/* offer badge */}
+        <div className='absolute top-3 right-3 h-8 w-14 bg-slate-300 rounded-lg'></div>
+
+      </div>
+
+    )
+  }
+  //cart check
+  const alreadyExists = Array.isArray(cart) && cart.some(
+    (cartItem) => cartItem.id === item.id
+  )
+  // add cart
+  const handleCart = () => {
+    if (alreadyExists) return
+    setCart([...cart, item])
+  }
+  // remove cart
+  const handleRemove = () => {
+    const updateCart = cart.filter(
+      (cartItem) => cartItem.id !== item.id)
+    setCart(updateCart)
+  }
   return (
     <div className='rounded-lg overflow-hidden shadow-lg transform  group hover:scale-110 duration-100 relative '>
       <img
@@ -9,10 +55,16 @@ function FruitsCards({ item }) {
       />
       <div className='flex flex-col items-center my-1 p-1 space-y-1 '>
         <span className='font-poppins text-slate-500 block' >{item.name}</span>
-     <p className='font-poppins text-slate-500'>  ₹ {item.price}</p>
-     <span className='font-poppins  uppercase text-lime-400 text-xs invisible group-hover:visible'>add to cart</span>
+        <p className='font-poppins text-slate-500'>  ₹ {item.price}</p>
+        <button onClick={alreadyExists ? handleRemove : handleCart}
+          className={`px-3 py-1 rounded text-sm transition duration-300 ${alreadyExists ? "text-red-500 hover:text-red-700" : "text-green-500 hover:text-lime-500"
+            }`} >
+          {
+            alreadyExists ? "Remove"  : "Add To Cart"
+          }
+        </button>
       </div>
-     <span className='absolute top-3 right-3 bg-sky-300 p-1 rounded-lg text-white border-sky-300 text-sm'>1% off</span>
+      <span className='absolute top-3 right-3 bg-sky-300 p-1 rounded-lg text-white border-sky-300 text-sm'>1% off</span>
     </div>
   )
 }
