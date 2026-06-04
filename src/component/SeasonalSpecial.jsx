@@ -122,11 +122,11 @@ function SeasonalSpecial({
 
       </div>
 
-      {filteredSeasonal.length === 0 && (
+      {/* {filteredSeasonal.length === 0 && (
         <h1 className='text-center text-slate-500 text-xl'>
           No Seasonal Fruits Found 😢
         </h1>
-      )}
+      )} */}
     </section>
   )
 }

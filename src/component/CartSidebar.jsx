@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function CartSidebar({ cart, cartOpen, setCartOpen, setCart }) {
-
+ 
   // total price
   const total = cart.reduce(
     (sum, item) => sum + item.price,
@@ -17,6 +17,7 @@ function CartSidebar({ cart, cartOpen, setCartOpen, setCart }) {
 
     setCart(updatedCart)
   }
+
 
   return (
 

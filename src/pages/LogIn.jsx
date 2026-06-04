@@ -1,25 +1,42 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"
 
 function LogIn() {
   const navigate = useNavigate()
-  const [email,setEmail]=useState("")
-  const [password,setPassword]=useState("")
-  const [error,setError]=useState("")
-  const handleLogin=(e)=>{
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const handleLogin = (e) => {
     e.preventDefault();
-    const savedUser=JSON.parse(localStorage.getItem("user"));
-    if(!savedUser){
+    setError("")
+    const savedUser = JSON.parse(
+      localStorage.getItem("user")
+    );
+
+    if (!savedUser) {
       setError("Please Sign Up First");
-      return
+      return;
     }
-    if(savedUser.email==email&&savedUser.password){
-      alert("login success fully")
-      navigate("/items")
-    }else{
-      setError("Invalid Email or Password")
+
+    if (
+      savedUser.email.trim().toLowerCase() !== email.trim().toLocaleLowerCase()
+    ) {
+      setError("User not found.");
+      return;
     }
+
+    if (
+      savedUser.password !== password
+    ) {
+      setError("Wrong Password");
+      return;
+    }
+    localStorage.setItem("isLoggedIn", "true");
+    navigate("/items");
   }
+
+  // console.log(email);
+  // console.log(password);
   return (
     <div
       className="min-h-screen bg-cover bg-center flex justify-end items-center px-40"
@@ -37,34 +54,32 @@ function LogIn() {
           <input
             type="email"
             placeholder="Email Address"
+            value={email}
             className="w-full p-3 border rounded-lg outline-none focus:border-green-500"
-            onChange={(e)=>setEmail(e.target.value)}
+            onChange={(e) => {setEmail(e.target.value);setError("")}}
           />
-          {
-            error&&(
-              <p className="text-red-500 text-center">{error}</p>
-            )
-          }
+        
           <input
             type="password"
             placeholder="Password"
+            value={password}
             className="w-full p-3 border rounded-lg outline-none focus:border-green-500"
-            onChange={(e)=>setPassword(e.target.value)}
+            onChange={(e) =>{ setPassword(e.target.value);setError("")}}
           />
           {
-            error&&(
+            error && (
               <p className="text-red-500 text-center">{error}</p>
             )
           }
           <button
-          type="submit"
-          className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition "
-         
-        >
-          Login
-        </button>
+            type="submit"
+            className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition "
+
+          >
+            Login
+          </button>
         </form>
-        
+
         <p className="text-center text-slate-900 mt-4">
           Don't have an account?{" "}
           <span className="text-blue-800 cursor-pointer hover:text-red-500 transition " onClick={() => navigate('/signup')}>

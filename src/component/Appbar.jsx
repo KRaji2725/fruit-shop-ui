@@ -1,8 +1,16 @@
 import React, { useState } from 'react'
 import fruits from "../data/fruits.json"
 import FruitsCards from './FruitsCards'
-function Appbar({ search, setSearch, cart=[], cartOpen, setCartOpen }) {
+import { useNavigate } from 'react-router-dom'
+function Appbar({ search, setSearch, cart = [], cartOpen, setCartOpen }) {
     const [open, setOpen] = useState(false)
+    const [showProfile, setShowProfile] = useState(false)
+    const user = JSON.parse(localStorage.getItem("user"));
+    const navigate = useNavigate()
+    const handleLogout = () => {
+        localStorage.removeItem("isLoogedIn")
+        navigate('/login')
+    }
     // menu three line bar 
     const menuClicked = () => {
         setOpen(!open)
@@ -29,7 +37,7 @@ function Appbar({ search, setSearch, cart=[], cartOpen, setCartOpen }) {
                     <input type="text"
                         placeholder='Search '
                         value={search}
-                        onChange={(e) => { console.log(e.target.value) ,setSearch(e.target.value) }}
+                        onChange={(e) => { console.log(e.target.value), setSearch(e.target.value) }}
                         className='bg-slate-100 rounded-4xl w-xl p-2 mt-2' />
 
                 </div>
@@ -43,8 +51,38 @@ function Appbar({ search, setSearch, cart=[], cartOpen, setCartOpen }) {
                         <li className='navbar'>
                             <a href="#" className="font-poppins">Vegetables</a>
                         </li>
-                        <li className='navbar'>
-                            <a href="#" className="font-poppins">More</a>
+                        <li className="relative navbar">
+                            <button
+                                onClick={() => setShowProfile(!showProfile)}
+                                className="text-2xl hover:scale-110 transition"
+                            >
+                                👤
+                            </button>
+
+                            {showProfile && (
+                                <div className="absolute right-0 top-10 bg-white shadow-lg rounded-lg p-4 w-64 z-50">
+
+                                    <h3 className="font-bold text-lg text-green-600">
+                                        {user?.name}
+                                    </h3>
+
+                                    <p className="text-slate-600">
+                                        📞 {user?.phoneNo}
+                                    </p>
+
+                                    <p className="text-slate-600 break-all">
+                                        📧 {user?.email}
+                                    </p>
+
+                                    <button
+                                        onClick={handleLogout}
+                                        className="mt-3 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
+                                    >
+                                        Logout
+                                    </button>
+
+                                </div>
+                            )}
                         </li>
                         <li
                             onClick={() => setCartOpen(true)}
