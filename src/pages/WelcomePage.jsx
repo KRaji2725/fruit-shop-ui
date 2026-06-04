@@ -97,7 +97,7 @@ function WelcomePage() {
             gap-2
             hover:bg-green-900
             transition
-          " onClick={()=>navigate('/Login')}>
+          " onClick={()=>navigate('/login')}>
             Shop Now
             <img src="/images/arrow.png" alt="arrow" className="w-5 h-5" />
           </button>

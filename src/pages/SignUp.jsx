@@ -42,7 +42,7 @@ function SignUp() {
 
         <p className="text-center text-slate-900 mt-4">
          Already have an account?{" "}
-          <span className="text-blue-800 cursor-pointer hover:text-red-500 transition" onClick={()=>navigate('/Login')}>
+          <span className="text-blue-800 cursor-pointer hover:text-red-500 transition" onClick={()=>navigate('/login')}>
             Log In
           </span>
         </p>
