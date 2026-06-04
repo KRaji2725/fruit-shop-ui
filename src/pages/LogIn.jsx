@@ -16,28 +16,22 @@ function LogIn() {
       setError(validationError)
       return
     }
-    const savedUser = JSON.parse(
-      localStorage.getItem("user")
-    );
+    const savedUser = JSON.parse(localStorage.getItem("user"));
 
-    if (!savedUser) {
-      setError("Please Sign Up First");
-      return;
-    }
+if (!savedUser) {
+  setError("Please Sign Up First");
+  return;
+}
 
-    if (
-      savedUser.email.trim().toLowerCase() !== email.trim().toLowerCase()
-    ) {
-      setError("User not found.");
-      return;
-    }
+if (savedUser.email.trim().toLowerCase() !== email.trim().toLowerCase()) {
+  setError("Email is not found.");
+  return;
+}
 
-    if (
-      savedUser.password !== password
-    ) {
-      setError("Wrong Password");
-      return;
-    }
+if (savedUser.password !== password) {
+  setError("Wrong Password");
+  return;
+}
     localStorage.setItem("isLoggedIn", "true");
     navigate("/items");
   }
