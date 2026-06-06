@@ -1,11 +1,18 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 function FruitsCards({ item, cart = [], setCart, loading }) {
+ const navigate=useNavigate()
 
 
   // skeleton UI
   if (loading) {
     return (
-      <div className='rounded-lg overflow-hidden shadow-lg animate-pulse relative'>
+      <div 
+      
+    
+      className='rounded-lg overflow-hidden shadow-lg animate-pulse relative'
+      
+      >
 
         {/* image */}
         <div className='w-full h-52 bg-slate-300'></div>
@@ -47,7 +54,11 @@ function FruitsCards({ item, cart = [], setCart, loading }) {
     setCart(updateCart)
   }
   return (
-    <div className='rounded-lg overflow-hidden shadow-lg transform  group hover:scale-110 duration-100 relative '>
+    <div 
+      onClick={()=>{
+        console.log(item.id)
+        navigate(`/product/${item.id}`)}}
+    className='rounded-lg overflow-hidden shadow-lg transform  group hover:scale-110 duration-100 relative '>
       <img
         src={`/images/${item.image}`}
         alt={item.name}

@@ -26,8 +26,8 @@ function Items({ search = "", setSearch,
         <div>
             {/* ✅ Navbar only here */}
             <Navbar search={search} setSearch={setSearch}
-            cart={cart} 
-            cartOpen={cartOpen} setCartOpen={setCartOpen} />
+                cart={cart}
+                cartOpen={cartOpen} setCartOpen={setCartOpen} />
             {/* ✅ Seasonal fruits only here */}
             <SeasonalFruits search={search} cart={cart} setCart={setCart} />
             {loading ? (
